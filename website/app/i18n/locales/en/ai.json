@@ -17,7 +17,7 @@
   "freeMessagesLabel": "free messages remaining out of",
   "allMessagesUsed": "All free messages used",
   "limitReached": {
-    "title": "You've used all {count} free messages!",
+    "title": "You've used all {{count}} free messages!",
     "welcomeMessage": "🎉 You've used all 10 free messages! Download CHEA for more AI chats and access to all 14 cybersecurity tools. Your security journey continues there! 🚀",
     "message": "🎉 You've used all 10 free messages! Download CHEA for more AI chats and access to all 14 cybersecurity tools. Your security journey continues there! 🚀",
     "downloadButton": "Download CHEA for More"
@@ -28,13 +28,13 @@
   "copy": "Copy message",
   "timeFormat": {
     "justNow": "Just now",
-    "minutesAgo": "{count}m ago",
-    "hoursAgo": "{count}h ago"
+    "minutesAgo": "{{count}}m ago",
+    "hoursAgo": "{{count}}h ago"
   },
   "rateLimit": "Rate limit exceeded. Please wait a moment before sending another message.",
   "responseError": "Failed to get response from AI",
   "readError": "Failed to read response",
   "genericError": "Something went wrong. Please try again.",
   "unknownError": "Unknown error",
-  "errorMessage": "Sorry, I encountered an error: {error}"
+  "errorMessage": "Sorry, I encountered an error: {{error}}"
 }
