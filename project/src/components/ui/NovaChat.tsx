@@ -163,11 +163,15 @@ export function NovaChat({ defaultPosition = { x: 24, y: 100 } }: NovaChatProps)
             const decoder = new TextDecoder();
             let full = '';
             let started = false;
+            let buffer = '';
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
-                for (const line of decoder.decode(value, { stream: true }).split('\n')) {
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split('\n');
+                buffer = lines.pop() || '';
+                for (const line of lines) {
                     const t = line.trim();
                     if (!t.startsWith('data: ')) continue;
                     const d = t.slice(6);

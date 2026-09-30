@@ -12,6 +12,8 @@ const rateLimits = new Map<string, RateLimitEntry>();
 const RATE_LIMIT = 10; // Max 10 requests per window
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute window
 
+const MODEL = "x-ai/grok-4.3";
+
 function getClientIp(req: NextRequest): string {
   // Try various headers to get client IP
   const forwarded = req.headers.get("x-forwarded-for");
@@ -129,7 +131,7 @@ The main hub showing:
 
 ### 9. AI Agent (/dashboard/ai-agent) - "You are here!"
 - Cybersecurity AI chatbot (that's me!)
-- Powered by OpenRouter API (x-ai/grok-4-fast)
+- Powered by OpenRouter API (x-ai/grok-4.3)
 - Persistent chat history in Firestore
 - Supports Markdown, code blocks, Mermaid diagrams
 - Arabic language support (RTL)
@@ -347,7 +349,7 @@ export async function POST(req: NextRequest) {
         "X-Title": "CHEA Website AI Chat",
       },
       body: JSON.stringify({
-        model: "x-ai/grok-4-fast",
+        model: MODEL,
         messages: apiMessages,
         stream: true,
       }),
@@ -378,14 +380,16 @@ export async function POST(req: NextRequest) {
         }
 
         const decoder = new TextDecoder();
+        let buffer = "";
 
         try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n");
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
 
             for (const line of lines) {
               const trimmed = line.trim();
